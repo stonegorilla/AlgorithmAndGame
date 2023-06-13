@@ -4,6 +4,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div>하하하하</div>
+      <div>호호호호</div>
     </main>
   );
 }
