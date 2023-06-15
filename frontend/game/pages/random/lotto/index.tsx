@@ -6,7 +6,17 @@ export default function Page() {
   const [startNum, setStartNum] = useState(0);
   const [endNum, setEndNum] = useState(0);
   const [count, setCount] = useState(1);
-  const [isDistinct, setIsDistinct] = useState(false);
+  const [isDistinct, setIsDistinct] = useState(true);
+  const [arr, setArr] = useState([]);
+  function makeResult() {
+    axios
+      .get(
+        `http://localhost:8080/random/lotto?start=${startNum}&end=${endNum}&count=${count}&isDistinct=${isDistinct}`
+      )
+      .then((response) => {
+        setArr(response.data.data);
+      });
+  }
   return (
     <div
       style={{
@@ -14,6 +24,7 @@ export default function Page() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        width: "100%",
       }}
     >
       <h1>로또번호 추출기</h1>
@@ -23,13 +34,7 @@ export default function Page() {
         value={startNum}
         onChange={(e) => {
           const newValue = Number(e.target.value);
-          if (newValue < 0) {
-            setStartNum(0);
-          } else if (newValue > endNum) {
-            setStartNum(endNum);
-          } else {
-            setStartNum(newValue);
-          }
+          setStartNum(newValue);
         }}
       />
       끝번호 :{" "}
@@ -37,13 +42,7 @@ export default function Page() {
         value={endNum}
         onChange={(e) => {
           const newValue = Number(e.target.value);
-          if (newValue < startNum) {
-            setEndNum(startNum);
-          } else if (newValue > 10000000) {
-            setEndNum(10000000);
-          } else {
-            setEndNum(newValue);
-          }
+          setEndNum(newValue);
         }}
       />
       개수 :{" "}
@@ -60,8 +59,32 @@ export default function Page() {
           }
         }}
       />
-      <button>중복x</button>
-      <button>추출하기</button>
+      {isDistinct && (
+        <button
+          onClick={() => {
+            setIsDistinct(false);
+          }}
+        >
+          중복불가
+        </button>
+      )}
+      {!isDistinct && (
+        <button
+          onClick={() => {
+            setIsDistinct(true);
+          }}
+        >
+          중복허용
+        </button>
+      )}
+      <button onClick={makeResult}>추출하기</button>
+      <div style={{ display: "flex", flexWrap: "wrap" }}>
+        {arr.map((data, index) => (
+          <div key={index}>
+            <h1 style={{ padding: "10px" }}>{data}</h1>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

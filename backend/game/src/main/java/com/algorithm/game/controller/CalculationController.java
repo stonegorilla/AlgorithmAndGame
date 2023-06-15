@@ -1,6 +1,7 @@
 package com.algorithm.game.controller;
 
 
+import com.algorithm.game.service.CalculationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -17,17 +18,15 @@ import java.util.HashMap;
 @Slf4j
 public class CalculationController {
 
-    @GetMapping("/basic")
-    public ResponseEntity<?> backjoon1000(@RequestParam Integer a, Integer b){
-        return ResponseEntity.ok(new HashMap<String,Integer>(){
-            {
-                put("add",a+b);
-                put("sub",a-b);
-                put("mul",a*b);
-                put("div",a/b);
-                put("rem",a%b);
-            }
+    private final CalculationService calculationService;
 
-        });
+    @GetMapping("/four-rules")
+    public ResponseEntity<?> backjoon1000(@RequestParam Integer a, Integer b){
+        return ResponseEntity.ok(calculationService.fourRules(a,b));
+    }
+
+    @GetMapping("/fibonacci")
+    public ResponseEntity<?> fibonacci(@RequestParam Integer num){
+        return ResponseEntity.ok(calculationService.fibonacci(num));
     }
 }
