@@ -11,14 +11,15 @@ export default function Page() {
 
   const MAX_VALUE = 10000;
 
-  function makeResult() {
+  async function makeResult() {
     if (result1Error != "" && result2Error != "") {
       alert("올바른 값을 입력해주세요");
       return;
     }
-    axios
+    const startTime = Date.now();
+    await axios
       .get(
-        `http://localhost:8080/calculation/basic?a=${Number(
+        `http://localhost:8080/calculation/four-rules?a=${Number(
           result1
         )}&b=${Number(result2)}`
       )
@@ -34,6 +35,23 @@ export default function Page() {
         });
       })
       .catch(function (error) {});
+    // let ttt = 0;
+    // for (let i = 0; i < 1000000; i++) {
+    //   ttt++;
+    // }
+    // setFinalResult((prev) => {
+    //   const updateArray: any[] = [...prev];
+    //   updateArray[0] = ttt;
+    //   updateArray[1] = Number(result1) - Number(result2);
+    //   updateArray[2] = Number(result1) * Number(result2);
+    //   updateArray[3] = Number(result1) / Number(result2);
+    //   updateArray[4] = Number(result1) % Number(result2);
+    //   return updateArray;
+    // });
+    const endTime = Date.now();
+    console.log(startTime);
+    console.log(endTime);
+    console.log(endTime - startTime);
   }
 
   return (
@@ -55,13 +73,11 @@ export default function Page() {
 
             if (!newValue.match(/^-?\d+$/)) {
               setResult1Error("정수를 입력해 주세요");
-            }
-            // else if (Number(newValue) > MAX_VALUE) {
-            //   setResult1Error("10000 이하의 숫자를 입력해 주세요");
-            // } else if (Number(newValue) < -MAX_VALUE) {
-            //   setResult1Error("-10000 이상의 숫자를 입력해 주세요");
-            // }
-            else {
+            } else if (Number(newValue) > MAX_VALUE) {
+              setResult1Error("10000 이하의 숫자를 입력해 주세요");
+            } else if (Number(newValue) < -MAX_VALUE) {
+              setResult1Error("-10000 이상의 숫자를 입력해 주세요");
+            } else {
               setResult1Error("");
             }
             setResult1(e.target.value);
@@ -78,13 +94,11 @@ export default function Page() {
 
             if (!newValue.match(/^-?\d+$/)) {
               setResult2Error("정수를 입력해 주세요");
-            }
-            // else if (Number(newValue) > MAX_VALUE) {
-            //   setResult2Error("10000 이하의 숫자를 입력해 주세요");
-            // } else if (Number(newValue) < -MAX_VALUE) {
-            //   setResult2Error("-10000 이상의 숫자를 입력해 주세요");
-            // }
-            else {
+            } else if (Number(newValue) > MAX_VALUE) {
+              setResult2Error("10000 이하의 숫자를 입력해 주세요");
+            } else if (Number(newValue) < -MAX_VALUE) {
+              setResult2Error("-10000 이상의 숫자를 입력해 주세요");
+            } else {
               setResult2Error("");
             }
             setResult2(e.target.value);

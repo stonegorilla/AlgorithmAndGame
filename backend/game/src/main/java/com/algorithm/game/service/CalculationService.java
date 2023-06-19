@@ -7,5 +7,5 @@ public interface CalculationService {
 
     HashMap<String, Integer> fourRules(Integer a, Integer b);
 
-    HashMap<String, BigInteger> fibonacci(Integer num);
+    HashMap<String, String> fibonacci(Integer num);
 }
