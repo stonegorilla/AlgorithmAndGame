@@ -15,11 +15,7 @@ public class CalculationServiceImpl implements CalculationService{
     public HashMap<String, Integer> fourRules(Integer a, Integer b) {
         HashMap<String,Integer> map;
         LocalDateTime startDate = LocalDateTime.now();
-        Integer ttt = 0;
-        for(int i=0; i<1000000; i++){
-            ttt++;
-        }
-        Integer tttFinal = ttt;
+
         LocalDateTime endDate = LocalDateTime.now();
         System.out.println(startDate);
         System.out.println(endDate);
@@ -27,7 +23,7 @@ public class CalculationServiceImpl implements CalculationService{
         try{
             map =  new HashMap<String,Integer>(){
                 {
-                    put("add",tttFinal);
+                    put("add",a+b);
                     put("sub",a-b);
                     put("mul",a*b);
                     put("div",a/b);
