@@ -2,9 +2,8 @@ package com.algorithm.game.domain;
 
 
 import com.algorithm.game.util.BaseTimeEntity;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -27,7 +26,16 @@ public class Board extends BaseTimeEntity {
     private String content;
 
 
+
     @JoinColumn(name="user_seq",nullable = false)
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
+
+    @Builder
+    public Board(Long boardSeq, String title, String content, User user) {
+        this.boardSeq = boardSeq;
+        this.title = title;
+        this.content = content;
+        this.user = user;
+    }
 }

@@ -2,15 +2,19 @@ package com.algorithm.game.domain;
 
 
 import com.algorithm.game.util.BaseTimeEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="user")
 @Getter
 @Setter
 @NoArgsConstructor
+
 public class User extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +32,8 @@ public class User extends BaseTimeEntity {
 
     @Column(name="nickname")
     private String nickname;
+
+
 
     @Builder
     public User(Long userSeq, String password, String email, String name, String nickname) {

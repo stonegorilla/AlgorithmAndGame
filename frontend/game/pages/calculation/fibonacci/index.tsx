@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import axios from "axios";
+import port from "../../../public/port";
 
 import React, { useState } from "react";
 export default function Page() {
@@ -18,7 +19,7 @@ export default function Page() {
     }
     const startTime = Date.now();
     await axios
-      .get(`http://localhost:8080/calculation/fibonacci?num=${Number(num)}`)
+      .get(`${port}/calculation/fibonacci?num=${Number(num)}`)
       .then(function (response) {
         setFibonacciResult(response.data.result);
       })
